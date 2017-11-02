@@ -60,6 +60,8 @@ namespace Treehouse.FitnessFrog.Controllers
             {
                 _entriesRepository.AddEntry(entry);
 
+                TempData["Message"] = "Your entry was successfully added!";
+
                 return RedirectToAction("Index");
             }
 
@@ -68,10 +70,6 @@ namespace Treehouse.FitnessFrog.Controllers
             return View(entry);
         }
 
-        private void SetupActivitiesSelectListItem()
-        {
-            ViewBag.ActivitiesSelectListItems = new SelectList(Data.Data.Activities, "Id", "Name");
-        }
 
 
         public ActionResult Edit(int? id)
@@ -101,6 +99,8 @@ namespace Treehouse.FitnessFrog.Controllers
             if (ModelState.IsValid)
             {
                 _entriesRepository.UpdateEntry(entry);
+
+                TempData["Message"] = "Your entry was successfully Updated!";
 
                 return RedirectToAction("Index");
             }
@@ -134,6 +134,8 @@ namespace Treehouse.FitnessFrog.Controllers
         {
             _entriesRepository.DeleteEntry(id);
 
+            TempData["Message"] = "Your entry was successfully deleted!";
+
             return RedirectToAction("Index");
         }
 
@@ -145,6 +147,11 @@ namespace Treehouse.FitnessFrog.Controllers
             {
                 ModelState.AddModelError("Duration", "The Duration field value must be greater than 0!");
             }
+        }
+
+        private void SetupActivitiesSelectListItem()
+        {
+            ViewBag.ActivitiesSelectListItems = new SelectList(Data.Data.Activities, "Id", "Name");
         }
     }
 }
